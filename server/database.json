@@ -1,0 +1,130 @@
+{
+  "cashRegister": [
+    {
+      "id": "7",
+      "description": "hia",
+      "value": "100",
+      "inputOrOutput": "saida",
+      "isEditing": "false"
+    },
+    {
+      "id": "8",
+      "description": "aa",
+      "value": "11",
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "9",
+      "description": "aa",
+      "value": "10",
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "10",
+      "description": "11",
+      "value": "11",
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "11",
+      "description": "11",
+      "value": "11",
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "12",
+      "description": "asas",
+      "value": "11",
+      "inputOrOutput": "saida",
+      "isEditing": "false"
+    },
+    {
+      "id": "13",
+      "description": "assa",
+      "value": "10",
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "14",
+      "description": "11",
+      "value": "11",
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "16",
+      "description": "aa",
+      "value": "11",
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "17",
+      "description": "sasas",
+      "value": "100",
+      "inputOrOutput": "saida",
+      "isEditing": "false"
+    },
+    {
+      "id": "18",
+      "description": "thiago",
+      "value": 10000,
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "19",
+      "description": "aa",
+      "value": 1000,
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "20",
+      "description": "aa",
+      "value": 1111,
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "21",
+      "description": "100",
+      "value": 100,
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "22",
+      "description": "111",
+      "value": 111,
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "23",
+      "description": "aa",
+      "value": 11,
+      "inputOrOutput": "entrada",
+      "isEditing": "false"
+    },
+    {
+      "id": "24",
+      "description": "1",
+      "value": 0,
+      "inputOrOutput": "Selecione entrada ou saída",
+      "isEditing": "false"
+    },
+    {
+      "id": "21",
+      "description": "klsak",
+      "value": "10",
+      "inputOrOutput": "saida",
+      "isEditing": false
+    }
+  ]
+}

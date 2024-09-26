@@ -1,0 +1,4 @@
+.navbar-expand {
+    flex-flow: row nowrap;
+    justify-content: center;
+}
