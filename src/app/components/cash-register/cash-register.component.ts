@@ -1,7 +1,7 @@
-import { NgIfContext } from '@angular/common';
-import { Component, ElementRef, OnChanges, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CashRegisterModel } from 'src/app/models/cash-register.model';
 import { CashRegisterService } from 'src/app/services/cash-register.service';
 
@@ -10,23 +10,21 @@ import { CashRegisterService } from 'src/app/services/cash-register.service';
   templateUrl: './cash-register.component.html',
   styleUrls: ['./cash-register.component.css'],
 })
-export class CashRegisterComponent implements OnInit {
+export class CashRegisterComponent implements OnInit, OnDestroy {
 
-  @ViewChild('viewDescription') viewDescription: TemplateRef<NgIfContext<boolean>>;
+  @ViewChild('viewDescription') viewDescription: TemplateRef<any>;
   @ViewChild('inputValue') inputValue: ElementRef;
   @ViewChild('inputDescription') inputDescription: ElementRef;
+  @ViewChild('selectValue') selectValue: ElementRef<HTMLSelectElement>;
 
   cashRegisterModel: CashRegisterModel;
-
   cashRegisterList$: Observable<CashRegisterModel[]>;
-
   cashRegisterForm: FormGroup;
-
   idCounter: number = 1;
-
   editingId: number | undefined = undefined;
-
-
+  totalIncomes: number = 0;
+  totalExpenses: number = 0;
+  private destroyed$ = new Subject<void>();
 
   constructor(
     private cashRegisterService: CashRegisterService,
@@ -36,6 +34,11 @@ export class CashRegisterComponent implements OnInit {
     this.initForm();
     this.initFormDefaultValues();
     this.getCashRegisters();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   initForm(): void {
@@ -54,8 +57,6 @@ export class CashRegisterComponent implements OnInit {
     });
   }
 
-
-
   saveCashRegister(): void {
     if (this.cashRegisterForm.valid) {
       this.cashRegisterModel = {
@@ -66,7 +67,9 @@ export class CashRegisterComponent implements OnInit {
         isEditing: false
       };
 
-      this.cashRegisterService.create(this.cashRegisterModel).subscribe({
+      this.cashRegisterService.create(this.cashRegisterModel).pipe(
+        takeUntil(this.destroyed$)
+      ).subscribe({
         next: (res) => {
           this.getCashRegisters();
           this.initFormDefaultValues();
@@ -80,21 +83,12 @@ export class CashRegisterComponent implements OnInit {
     return document.querySelectorAll('tbody tr').length;
   }
 
-
   getCashRegisters(): void {
     this.cashRegisterList$ = this.cashRegisterService.getAll();
-  }
 
-
-
-  removeAllTutorials(): void {
-    this.cashRegisterService.deleteAll().subscribe({
-      next: (res) => {
-        // console.log(res);
-        // this.refreshList();
-      },
-      error: (e) => console.error(e)
-    });
+    this.cashRegisterList$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((cashRegisters) => this.calculateTotals(cashRegisters));
   }
 
   getIdRegisterCash(cashRegister: CashRegisterModel): void {
@@ -102,22 +96,23 @@ export class CashRegisterComponent implements OnInit {
   }
 
   editRegister(): void {
-    debugger
+    this.selectValue.nativeElement.value;
     this.setJustNumber(this.inputValue.nativeElement.value).toString();
     if (this.editingId !== undefined) {
-    
       this.cashRegisterModel = {
         id: this.editingId,
         description: this.inputDescription.nativeElement.value,
         value: this.setJustNumber(this.inputValue.nativeElement.value),
-        inputOrOutput: this.cashRegisterForm.controls['entryExit'].value,
+        inputOrOutput: this.selectValue.nativeElement.value,
         isEditing: false
       };
 
-      this.cashRegisterService.update(this.editingId, this.cashRegisterModel).subscribe({
+      this.cashRegisterService.update(this.editingId, this.cashRegisterModel).pipe(
+        takeUntil(this.destroyed$)
+      ).subscribe({
         next: () => {
-          this.getCashRegisters(); 
-          this.editingId = undefined; 
+          this.getCashRegisters();
+          this.editingId = undefined;
           this.initFormDefaultValues();
         },
         error: (e) => console.error(e)
@@ -126,7 +121,9 @@ export class CashRegisterComponent implements OnInit {
   }
 
   deleteRegister(id: number | undefined): void {
-    this.cashRegisterService.delete(id).subscribe({
+    this.cashRegisterService.delete(id).pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe({
       next: () => {
         this.getCashRegisters();
         console.log(`Registro ${id} deletado com sucesso.`);
@@ -136,10 +133,22 @@ export class CashRegisterComponent implements OnInit {
   }
 
   setJustNumber(input: string): string {
- 
-    const cleanedString = input.replace(/[^0-9-]+/g, ''); 
-  
-    return cleanedString; 
+    const cleanedString = input.replace(/[^0-9-]+/g, '');
+    return cleanedString;
+  }
+
+  calculateTotals(cashRegisters: CashRegisterModel[]): void {
+    this.totalIncomes = cashRegisters
+      .filter(register => register.inputOrOutput === 'entrada')
+      .reduce((acc, register) => acc + Number(register.value), 0);
+
+    this.totalExpenses = cashRegisters
+      .filter(register => register.inputOrOutput === 'saida')
+      .reduce((acc, register) => acc + Number(register.value), 0);
+  }
+
+  get totalBalance(): number {
+    return this.totalIncomes - this.totalExpenses;
   }
 
   get description() {
@@ -153,5 +162,4 @@ export class CashRegisterComponent implements OnInit {
   get entryExit() {
     return this.cashRegisterForm.get('entryExit');
   }
-
 }
