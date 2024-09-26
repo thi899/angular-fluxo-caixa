@@ -63,11 +63,10 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
         id: this.getCountListScreen() > 0 ? this.getCountListScreen() + 1 : this.idCounter++,
         description: this.cashRegisterForm.controls['description'].value,
         value: this.cashRegisterForm.controls['value'].value,
-        inputOrOutput: this.cashRegisterForm.controls['entryExit'].value,
-        isEditing: false
+        inputOrOutput: this.cashRegisterForm.controls['entryExit'].value
       };
 
-      this.cashRegisterService.create(this.cashRegisterModel).pipe(
+      this.cashRegisterService.create(this.cashRegisterModel)?.pipe(
         takeUntil(this.destroyed$)
       ).subscribe({
         next: (res) => {
@@ -86,7 +85,7 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
   getCashRegisters(): void {
     this.cashRegisterList$ = this.cashRegisterService.getAll();
 
-    this.cashRegisterList$.pipe(
+    this.cashRegisterList$?.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((cashRegisters) => this.calculateTotals(cashRegisters));
   }
@@ -103,11 +102,10 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
         id: this.editingId,
         description: this.inputDescription.nativeElement.value,
         value: this.setJustNumber(this.inputValue.nativeElement.value),
-        inputOrOutput: this.selectValue.nativeElement.value,
-        isEditing: false
+        inputOrOutput: this.selectValue.nativeElement.value
       };
 
-      this.cashRegisterService.update(this.editingId, this.cashRegisterModel).pipe(
+      this.cashRegisterService.update(this.editingId, this.cashRegisterModel)?.pipe(
         takeUntil(this.destroyed$)
       ).subscribe({
         next: () => {
@@ -121,7 +119,7 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
   }
 
   deleteRegister(id: number | undefined): void {
-    this.cashRegisterService.delete(id).pipe(
+    this.cashRegisterService.delete(id)?.pipe(
       takeUntil(this.destroyed$)
     ).subscribe({
       next: () => {
