@@ -3,5 +3,4 @@ export interface CashRegisterModel {
   description: string;
   value: string;
   inputOrOutput: string;
-  isEditing: boolean;
 }
