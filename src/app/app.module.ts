@@ -6,13 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CashRegisterComponent } from './components/cash-register/cash-register.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { TotalCashRegisterComponent } from './total-cash-register/total-cash-register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CashRegisterComponent,
-    TotalCashRegisterComponent
+    CashRegisterComponent
   ],
   imports: [
     BrowserModule,

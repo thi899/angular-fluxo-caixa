@@ -59,12 +59,8 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
 
   saveCashRegister(): void {
     if (this.cashRegisterForm.valid) {
-      this.cashRegisterModel = {
-        id: this.getCountListScreen() > 0 ? this.getCountListScreen() + 1 : this.idCounter++,
-        description: this.cashRegisterForm.controls['description'].value,
-        value: this.cashRegisterForm.controls['value'].value,
-        inputOrOutput: this.cashRegisterForm.controls['entryExit'].value
-      };
+      
+       this.cashRegisterModel = this.createCashRegisterModel();
 
       this.cashRegisterService.create(this.cashRegisterModel)?.pipe(
         takeUntil(this.destroyed$)
@@ -88,6 +84,16 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
     this.cashRegisterList$?.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((cashRegisters) => this.calculateTotals(cashRegisters));
+  }
+
+  private createCashRegisterModel(): CashRegisterModel {
+    return    this.cashRegisterModel = {
+      id: this.getCountListScreen() > 0 ? this.getCountListScreen() + 1 : this.idCounter++,
+      description: this.cashRegisterForm.controls['description'].value,
+      value: this.cashRegisterForm.controls['value'].value,
+      inputOrOutput: this.cashRegisterForm.controls['entryExit'].value
+    };
+
   }
 
   getIdRegisterCash(cashRegister: CashRegisterModel): void {
@@ -135,15 +141,18 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
     return cleanedString;
   }
 
-  calculateTotals(cashRegisters: CashRegisterModel[]): void {
-    this.totalIncomes = cashRegisters
-      .filter(register => register.inputOrOutput === 'entrada')
-      .reduce((acc, register) => acc + Number(register.value), 0);
 
-    this.totalExpenses = cashRegisters
-      .filter(register => register.inputOrOutput === 'saida')
+  private calculateTotals(cashRegisters: CashRegisterModel[]): void {
+    this.totalIncomes = this.calculateTotalByType(cashRegisters, 'entrada');
+    this.totalExpenses = this.calculateTotalByType(cashRegisters, 'saida');
+  }
+
+  private calculateTotalByType(cashRegisters: CashRegisterModel[], type: string): number {
+    return cashRegisters
+      .filter(register => register.inputOrOutput === type)
       .reduce((acc, register) => acc + Number(register.value), 0);
   }
+
 
   get totalBalance(): number {
     return this.totalIncomes - this.totalExpenses;

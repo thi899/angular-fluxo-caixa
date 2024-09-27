@@ -116,7 +116,7 @@ describe('CashRegisterService', () => {
 
     const request = httpMock.expectOne(baseUrl);
     expect(request.request.method).toBe('POST');
-    //request.flush({ id: 12, ...newCashRegister });
+
   });
 
   it('should update an existing cash register', () => {
