@@ -1,41 +1,6 @@
 {
   "cashRegister": [
     {
-      "id": "12",
-      "description": "asas",
-      "value": "11",
-      "inputOrOutput": "saida",
-      "isEditing": "false"
-    },
-    {
-      "id": "13",
-      "description": "assa",
-      "value": "10",
-      "inputOrOutput": "entrada",
-      "isEditing": "false"
-    },
-    {
-      "id": "14",
-      "description": "11",
-      "value": "11",
-      "inputOrOutput": "entrada",
-      "isEditing": "false"
-    },
-    {
-      "id": "17",
-      "description": "sasas",
-      "value": "100",
-      "inputOrOutput": "saida",
-      "isEditing": "false"
-    },
-    {
-      "id": "23",
-      "description": "aa",
-      "value": 11,
-      "inputOrOutput": "entrada",
-      "isEditing": "false"
-    },
-    {
       "id": "21",
       "description": "klsak",
       "value": "10",
@@ -43,18 +8,17 @@
       "isEditing": false
     },
     {
-      "id": 11,
-      "description": "huhu",
-      "value": 800,
-      "inputOrOutput": "saida",
-      "isEditing": false
-    },
-    {
-      "id": 8,
+      "id": "8",
       "description": "jijsai",
       "value": 2000000,
       "inputOrOutput": "entrada",
       "isEditing": false
+    },
+    {
+      "id": 3,
+      "description": "ssas",
+      "value": 10000,
+      "inputOrOutput": "entrada"
     }
   ]
 }
