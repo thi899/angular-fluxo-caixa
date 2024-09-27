@@ -9,6 +9,12 @@ Antes de começar, você precisa ter instalado em sua máquina:
 - [Node.js](https://nodejs.org/) (versão 14 ou superior)
 - [npm](https://www.npmjs.com/) (geralmente incluído com o Node.js)
 
+## Instalando dependencias
+
+Em sua pasta raiz, execute o seguinte comando:
+
+npm install
+
 ## Iniciando app na porta 4200(Default)
 
 execute o seguinte comando:
