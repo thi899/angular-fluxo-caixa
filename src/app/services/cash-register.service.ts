@@ -31,10 +31,6 @@ export class CashRegisterService {
     return this.http.delete(`${baseUrl}/${id}`);
   }
 
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
   findByTitle(title: any): Observable<CashRegisterModel[]> {
     return this.http.get<CashRegisterModel[]>(`${baseUrl}?title=${title}`);
   }

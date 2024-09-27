@@ -146,15 +146,6 @@ describe('CashRegisterService', () => {
     request.flush({});
   });
 
-  it('should delete all cash registers', () => {
-    service.deleteAll().subscribe((response) => {
-      expect(response).toBeTruthy();
-    });
-
-    const request = httpMock.expectOne(baseUrl);
-    expect(request.request.method).toBe('DELETE');
-    request.flush({});
-  });
 
   it('should find cash registers by title', () => {
     const dummyCashRegisters: CashRegisterModel[] = [
