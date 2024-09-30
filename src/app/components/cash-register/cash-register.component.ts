@@ -59,8 +59,8 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
 
   saveCashRegister(): void {
     if (this.cashRegisterForm.valid) {
-      
-       this.cashRegisterModel = this.createCashRegisterModel();
+
+      this.cashRegisterModel = this.createCashRegisterModel();
 
       this.cashRegisterService.create(this.cashRegisterModel)?.pipe(
         takeUntil(this.destroyed$)
@@ -87,7 +87,7 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
   }
 
   private createCashRegisterModel(): CashRegisterModel {
-    return    this.cashRegisterModel = {
+    return this.cashRegisterModel = {
       id: this.getCountListScreen() > 0 ? this.getCountListScreen() + 1 : this.idCounter++,
       description: this.cashRegisterForm.controls['description'].value,
       value: this.cashRegisterForm.controls['value'].value,
@@ -142,7 +142,7 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
   }
 
 
-  private calculateTotals(cashRegisters: CashRegisterModel[]): void {
+  calculateTotals(cashRegisters: CashRegisterModel[]): void {
     this.totalIncomes = this.calculateTotalByType(cashRegisters, 'entrada');
     this.totalExpenses = this.calculateTotalByType(cashRegisters, 'saida');
   }
