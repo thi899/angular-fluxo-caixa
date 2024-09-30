@@ -2,8 +2,8 @@ import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CashRegisterModel } from 'src/app/models/cash-register.model';
-import { CashRegisterService } from 'src/app/services/cash-register.service';
+import { CashRegisterModel } from 'src/app/services/models/cash-register.model';
+import { CashRegisterService } from 'src/app/services/cash-register/cash-register.service';
 
 @Component({
   selector: 'app-cash-register',
@@ -65,7 +65,7 @@ export class CashRegisterComponent implements OnInit, OnDestroy {
       this.cashRegisterService.create(this.cashRegisterModel)?.pipe(
         takeUntil(this.destroyed$)
       ).subscribe({
-        next: (res) => {
+        next: () => {
           this.getCashRegisters();
           this.initFormDefaultValues();
         },

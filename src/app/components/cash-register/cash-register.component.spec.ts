@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CashRegisterComponent } from './cash-register.component';
-import { CashRegisterService } from 'src/app/services/cash-register.service';
+import { CashRegisterService } from 'src/app/services/cash-register/cash-register.service';
 import { of, throwError } from 'rxjs';
-import { CashRegisterModel } from 'src/app/models/cash-register.model';
+import { CashRegisterModel } from 'src/app/services/models/cash-register.model';
 import { ElementRef } from '@angular/core';
 
 describe('CashRegisterComponent', () => {

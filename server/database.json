@@ -15,10 +15,16 @@
       "isEditing": false
     },
     {
-      "id": 3,
+      "id": "3",
       "description": "ssas",
       "value": 10000,
       "inputOrOutput": "entrada"
+    },
+    {
+      "id": 4,
+      "description": "teste",
+      "value": 200000,
+      "inputOrOutput": "saida"
     }
   ]
 }

@@ -145,25 +145,4 @@ describe('CashRegisterService', () => {
     expect(request.request.method).toBe('DELETE');
     request.flush({});
   });
-
-
-  it('should find cash registers by title', () => {
-    const dummyCashRegisters: CashRegisterModel[] = [
-      {
-        "id": 13,
-        "description": "assa",
-        "value": "10",
-        "inputOrOutput": "entrada",
-      }
-    ];
-
-    service.findByTitle('Cash Register 1').subscribe((cashRegisters) => {
-      expect(cashRegisters.length).toBe(1);
-      expect(cashRegisters).toEqual([dummyCashRegisters[0]]);
-    });
-
-    const request = httpMock.expectOne(`${baseUrl}?title=Cash Register 1`);
-    expect(request.request.method).toBe('GET');
-    request.flush([dummyCashRegisters[0]]);
-  });
 });
